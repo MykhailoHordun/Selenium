@@ -3,7 +3,6 @@ using NUnit.Framework;
 using NUnit.Framework.Internal;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-
 namespace Lab_Cucumber.StepDefinitions
 {
     
@@ -49,13 +48,12 @@ namespace Lab_Cucumber.StepDefinitions
         private const string _login = "Admin";
         private const string _password = "admin123";
         private const string _name = "Kanye";
-        private const string _lastname = "West";
         private const string _Currency = "USD - United States Dollar";
         private const string _min = "100";
         private const string _max = "379";
 
-        private const string _fromData = "2021-01-01";
-        private const string _toData = "2022-12-31";
+        private const string _fromData = "2021-12-08";
+        private const string _toData = "2021-12-08";
 
         public bool ElementDisplayed(By locator)
         {
@@ -180,8 +178,6 @@ namespace Lab_Cucumber.StepDefinitions
         public void ThenIAmObservingPayGradeTableWithoutMyRecord()
         {
             Assert.IsEmpty(driver.FindElements(By.XPath("//tr//td//a[text()='Some_Shift_Name']//..//..//td//input")));
-            var PIM = driver.FindElement(_PIMButton);
-            PIM.Click();
         }
         [When(@"I click PIM button")]
         public void WhenIClickPIMButton()
@@ -201,10 +197,10 @@ namespace Lab_Cucumber.StepDefinitions
         public void WhenIEnterFirstNameLastName()
         {
             var firstName = driver.FindElement(_FirstNameInputButton);
-            firstName.SendKeys(_name);
+            firstName.SendKeys("Mykhailo");
 
             var lastName = driver.FindElement(_LastNameInputButton);
-            lastName.SendKeys(_lastname);
+            lastName.SendKeys("Hordun");
         }
 
         [When(@"I click save button to save Employee")]
@@ -212,6 +208,7 @@ namespace Lab_Cucumber.StepDefinitions
         {
             var save = driver.FindElement(_SaveButton);
             save.Click();
+            Thread.Sleep(10000);
         }
         [When(@"I click Leave button")]
         public void WhenIClickLeaveButton()
@@ -231,7 +228,7 @@ namespace Lab_Cucumber.StepDefinitions
         public void WhenIEnterEmployeeName()
         {
             var EmpName = driver.FindElement(_EmplNameInputButton);
-            EmpName.SendKeys(_name + " " + _lastname);
+            EmpName.SendKeys("Mykhailo Hordun");
         }
 
         [When(@"I choose Leave Type\\")]
@@ -239,7 +236,7 @@ namespace Lab_Cucumber.StepDefinitions
         {
             var LeaveType = driver.FindElement(_LaeveTypeButton);
             SelectElement type = new SelectElement(LeaveType);
-            type.SelectByIndex(4);
+            type.SelectByIndex(2);
         }
 
         [When(@"I choose dates")]
@@ -248,9 +245,13 @@ namespace Lab_Cucumber.StepDefinitions
             var fromData = driver.FindElement(_FromDateInputButton);
             fromData.Clear();
             fromData.SendKeys(_fromData);
+
             var toData = driver.FindElement(_ToDateInputButton);
             toData.Clear();
-            toData.SendKeys(_toData);
+            toData.SendKeys(_fromData);
+            toData.SendKeys(Keys.Enter);
+            Thread.Sleep(10000);
+
         }
 
         [When(@"I click Asign button")]
@@ -258,9 +259,6 @@ namespace Lab_Cucumber.StepDefinitions
         {
             var assignBtn = driver.FindElement(_AssignButton);
             assignBtn.Click();
-            var assignOkBtn = driver.FindElement(_AssignOkButton);
-            assignOkBtn.Click();
-            
         }
 
         [When(@"I click on Leave List button")]
@@ -273,7 +271,7 @@ namespace Lab_Cucumber.StepDefinitions
         [Then(@"I am observing")]
         public void ThenIAmObserving()
         {
-            
+            Thread.Sleep(10000);
         }
 
     }
