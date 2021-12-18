@@ -1,6 +1,8 @@
 using Lab_Cucumber.Drivers;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace Lab_Cucumber.StepDefinitions
 {
@@ -30,13 +32,30 @@ namespace Lab_Cucumber.StepDefinitions
         private readonly By _CheckboxButton = By.XPath("//tr//td//a[text()='Kanye']//..//..//td");
         private readonly By _DeleteButton = By.XPath("//input[@id='btnDelete']");
         private readonly By _OkButton = By.XPath("//input[@id='dialogDeleteBtn']");
-
+        private readonly By _PIMButton = By.XPath("//*[text()='PIM']");
+        private readonly By _AddEmloyeeButton = By.XPath("//*[@id='menu_pim_addEmployee']");
+        private readonly By _FirstNameInputButton = By.XPath("//input[@id='firstName']");
+        private readonly By _LastNameInputButton = By.XPath("//input[@id='lastName']");
+        private readonly By _LeaveButton = By.XPath("//*[text()='Leave']");
+        private readonly By _LeaveAssignButton = By.XPath("//*[@id='menu_leave_assignLeave']");
+        private readonly By _EmplNameInputButton = By.XPath("//*[@id='assignleave_txtEmployee_empName']");
+        private readonly By _LaeveTypeButton = By.XPath("//*[@id='assignleave_txtLeaveType']");
+        private readonly By _FromDateInputButton = By.XPath("//*[@id='assignleave_txtFromDate']");
+        private readonly By _ToDateInputButton = By.XPath("//*[@id='assignleave_txtToDate']");
+        private readonly By _AssignButton = By.XPath("//input[@id='assignBtn']");
+        private readonly By _AssignOkButton = By.XPath("//input[@id='confirmOkButton']");
+        private readonly By _LeaveListButton = By.XPath("//*[@id='menu_leave_viewLeaveList']");
+        
         private const string _login = "Admin";
         private const string _password = "admin123";
         private const string _name = "Kanye";
+        private const string _lastname = "West";
         private const string _Currency = "USD - United States Dollar";
         private const string _min = "100";
         private const string _max = "379";
+
+        private const string _fromData = "2021-01-01";
+        private const string _toData = "2022-12-31";
 
         public bool ElementDisplayed(By locator)
         {
@@ -159,6 +178,100 @@ namespace Lab_Cucumber.StepDefinitions
 
         [Then(@"I am observing Pay Grade table without my record")]
         public void ThenIAmObservingPayGradeTableWithoutMyRecord()
+        {
+            Assert.IsEmpty(driver.FindElements(By.XPath("//tr//td//a[text()='Some_Shift_Name']//..//..//td//input")));
+            var PIM = driver.FindElement(_PIMButton);
+            PIM.Click();
+        }
+        [When(@"I click PIM button")]
+        public void WhenIClickPIMButton()
+        {
+            var PIM = driver.FindElement(_PIMButton);
+            PIM.Click();
+        }
+
+        [When(@"I click Add Employee button")]
+        public void WhenIClickAddEmployeeButton()
+        {
+            var addEmploee = driver.FindElement(_AddEmloyeeButton);
+            addEmploee.Click();
+        }
+
+        [When(@"I enter <FirstName>, <LastName>")]
+        public void WhenIEnterFirstNameLastName()
+        {
+            var firstName = driver.FindElement(_FirstNameInputButton);
+            firstName.SendKeys(_name);
+
+            var lastName = driver.FindElement(_LastNameInputButton);
+            lastName.SendKeys(_lastname);
+        }
+
+        [When(@"I click save button to save Employee")]
+        public void ThenIClickSaveButtonToSaveEmployee()
+        {
+            var save = driver.FindElement(_SaveButton);
+            save.Click();
+        }
+        [When(@"I click Leave button")]
+        public void WhenIClickLeaveButton()
+        {
+            var LeaveButton = driver.FindElement(_LeaveButton);
+            LeaveButton.Click();
+        }
+
+        [When(@"I click Assign Leave button")]
+        public void WhenIClickAssignLeaveButton()
+        {
+            var LeaveAssignButton = driver.FindElement(_LeaveAssignButton);
+            LeaveAssignButton.Click();
+        }
+
+        [When(@"I enter <Employee Name>")]
+        public void WhenIEnterEmployeeName()
+        {
+            var EmpName = driver.FindElement(_EmplNameInputButton);
+            EmpName.SendKeys(_name + " " + _lastname);
+        }
+
+        [When(@"I choose Leave Type\\")]
+        public void WhenIChooseLeaveType()
+        {
+            var LeaveType = driver.FindElement(_LaeveTypeButton);
+            SelectElement type = new SelectElement(LeaveType);
+            type.SelectByIndex(4);
+        }
+
+        [When(@"I choose dates")]
+        public void WhenIChooseDates()
+        {
+            var fromData = driver.FindElement(_FromDateInputButton);
+            fromData.Clear();
+            fromData.SendKeys(_fromData);
+            var toData = driver.FindElement(_ToDateInputButton);
+            toData.Clear();
+            toData.SendKeys(_toData);
+        }
+
+        [When(@"I click Asign button")]
+        public void WhenIClickAsignButton()
+        {
+            var assignBtn = driver.FindElement(_AssignButton);
+            assignBtn.Click();
+            var assignOkBtn = driver.FindElement(_AssignOkButton);
+            assignOkBtn.Click();
+            
+        }
+
+        [When(@"I click on Leave List button")]
+        public void WhenIClickOnLeaveListButton()
+        {
+            var leaveLlist = driver.FindElement(_LeaveListButton);
+            leaveLlist.Click();
+        }
+
+        [Then(@"I am observing")]
+        public void ThenIAmObserving()
         {
             
         }

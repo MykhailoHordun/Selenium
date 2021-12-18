@@ -21,3 +21,16 @@
     And I click Ok button in dialog box
     Then I am observing Pay Grade table without my record
 
+    #Additional Task
+    When I click PIM button
+    And I click Add Employee button
+    And I enter <FirstName>, <LastName>
+    And I click save button to save Employee
+    And I click Leave button
+    And I click Assign Leave button
+    And I enter <Employee Name>
+    And I choose Leave Type\
+    And I choose dates
+    And I click Asign button
+    And I click on Leave List button
+    Then I am observing 
