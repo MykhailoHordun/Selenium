@@ -182,7 +182,7 @@ namespace Lab_Cucumber.StepDefinitions
         [Then(@"I am observing Pay Grade table without my record")]
         public void ThenIAmObservingPayGradeTableWithoutMyRecord()
         {
-            Assert.IsEmpty(driver.FindElements(By.XPath("//tr//td//a[text()='Some_Shift_Name']//..//..//td//input")));
+            Assert.IsEmpty(driver.FindElements(By.XPath("//tr//td//a[text()='Kanye']//..//..//td//input")));
         }
         [When(@"I click PIM button")]
         public void WhenIClickPIMButton()
