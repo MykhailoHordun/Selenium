@@ -42,9 +42,14 @@ namespace Lab_Cucumber.StepDefinitions
         private readonly By _FromDateInputButton = By.XPath("//*[@id='assignleave_txtFromDate']");
         private readonly By _ToDateInputButton = By.XPath("//*[@id='assignleave_txtToDate']");
         private readonly By _AssignButton = By.XPath("//input[@id='assignBtn']");
-        private readonly By _AssignOkButton = By.XPath("//input[@id='confirmOkButton']");
         private readonly By _LeaveListButton = By.XPath("//*[@id='menu_leave_viewLeaveList']");
-        
+        private readonly By _SearchFromDateInputButton = By.XPath("//*[@id = 'calFromDate']");
+        private readonly By _SearchToDateInputButton = By.XPath("//*[@id = 'calToDate']");
+        private readonly By _SearchEmpNameInputButton = By.XPath("//*[@id = 'leaveList_txtEmployee_empName']");
+        private readonly By _SearchButton = By.XPath("//*[@id = 'btnSearch']");
+        private readonly By _AllCheckbox = By.XPath("//*[@id='leaveList_chkSearchFilter_checkboxgroup_allcheck']");
+        private readonly By _NameIsVisible = By.XPath("//*[text()='Mykhailo Hordun']");
+
         private const string _login = "Admin";
         private const string _password = "admin123";
         private const string _name = "Kanye";
@@ -208,7 +213,6 @@ namespace Lab_Cucumber.StepDefinitions
         {
             var save = driver.FindElement(_SaveButton);
             save.Click();
-            Thread.Sleep(10000);
         }
         [When(@"I click Leave button")]
         public void WhenIClickLeaveButton()
@@ -250,7 +254,7 @@ namespace Lab_Cucumber.StepDefinitions
             toData.Clear();
             toData.SendKeys(_fromData);
             toData.SendKeys(Keys.Enter);
-            Thread.Sleep(10000);
+            Thread.Sleep(5000);
 
         }
 
@@ -268,10 +272,45 @@ namespace Lab_Cucumber.StepDefinitions
             leaveLlist.Click();
         }
 
+        [When(@"I search <Employee Name>")]
+        public void WhenISearchEmployeeName()
+        {
+            Thread.Sleep(5000);
+            var SearchName = driver.FindElement(_SearchEmpNameInputButton);
+            SearchName.SendKeys("Mykhailo Hordun");
+        }
+
+        [When(@"I click All checkbox")]
+        public void WhenIClickAllCheckbox()
+        {
+            var allCheckbox = driver.FindElement(_AllCheckbox);
+            allCheckbox.Click();
+        }
+
+
+        [When(@"I search dates")]
+        public void WhenISearchDates()
+        {
+            var SearchFromData = driver.FindElement(_SearchFromDateInputButton);
+            SearchFromData.Clear();
+            SearchFromData.SendKeys(_fromData);
+            var SearchToData = driver.FindElement(_SearchToDateInputButton);
+            SearchToData.Clear();
+            SearchToData.SendKeys(_toData);
+        }
+
+        [When(@"I click Search button")]
+        public void WhenIClickSearchButton()
+        {
+            var searchButton = driver.FindElement(_SearchButton);
+            searchButton.Click();
+        }
+
+
         [Then(@"I am observing")]
         public void ThenIAmObserving()
         {
-            Thread.Sleep(10000);
+            Assert.AreEqual(ElementDisplayed(_NameIsVisible), true);
         }
 
     }
